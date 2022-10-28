@@ -14,7 +14,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('products.index', [
+            'products' => $products
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -35,7 +38,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+                'code' => 'required',
+                'product_name'=> 'required',
+                'quantity' => 'required',
+                'price' => 'required'
+        ]);
+        $array = $request->only([
+            'code', 'product_name','quantity', 'price'
+        ]);
+        $products = Product::create($array);
+        return redirect()->route('products.index')
+                ->with('success_message', 'Berhasil menambah product baru');
     }
 
     /**
@@ -55,11 +69,13 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $products = Product::findOrFail($id);
+        return view('products.edit', [
+            'product' => $products
+        ]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -67,9 +83,22 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'code' => 'required',
+            'product_name'=> 'required',
+            'quantity' => 'required',
+            'price' => 'required'
+        ]);
+        $product = product::find($id);
+        $product->code = $request->code;
+        $product->product_name = $request->product_name;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->save();
+        return redirect()->route('products.index')
+            ->with('success_message', 'Berhasil mengubah product');
     }
 
     /**
@@ -78,8 +107,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route('products.index')
+            ->with('success_message', 'Berhasil menghapus product');
     }
 }
