@@ -55,7 +55,7 @@ class ProductController extends Controller
                 ->with('success_message', 'Berhasil menambah product baru');
         }catch (\Exception $e) {
         return redirect()->route('products.create')
-        ->with('error_message', 'Kode Barang yang Anda Masukkan Harus Memiliki 13 Karakter');;
+        ->with('error_message', 'Format yang anda masukkan salah !');;
         }
     }
 
@@ -93,7 +93,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => 'required',
+            'code' => 'required | min:13 | max:13',
             'product_name'=> 'required',
             'quantity' => 'required',
             'price' => 'required'

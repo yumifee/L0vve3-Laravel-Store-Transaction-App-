@@ -72,9 +72,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $user = User::find($id);
+        if ($id == $request->user()->id) return redirect()->route('users.index')
+            ->with('error_message', 'Anda tidak dapat mengedit admin.');
         if (!$user) return redirect()->route('users.index')
             ->with('error_message', 'User dengan id '.$id.' tidak ditemukan');
         return view('users.edit', [
