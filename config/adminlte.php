@@ -301,7 +301,7 @@ return [
         ],
         [
             'text' => 'Transaction',
-            'url'  => '/products',
+            'url'  => '/transactions',
             'icon'  => 'fa fa-shopping-basket',
         ],
         [
