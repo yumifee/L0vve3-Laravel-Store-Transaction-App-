@@ -114,4 +114,12 @@ class ProductController extends Controller
         return redirect()->route('products.index')
             ->with('success_message', 'Berhasil menghapus product');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+
 }

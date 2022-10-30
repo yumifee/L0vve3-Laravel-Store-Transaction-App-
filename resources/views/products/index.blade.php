@@ -11,6 +11,9 @@
                     <a href="{{route('products.create')}}" class="btn btn-primary mb-2">
                         Tambah
                     </a>
+                    <a href="download-pdf" class="btn btn-primary mb-2">
+                        Laporan
+                    </a>
                     <table class="table table-hover table-bordered table-stripped" id="example2">
                         <thead>
                         <tr>
