@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use exception;
 
 class ProductController extends Controller
@@ -16,6 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+        Log::info('User mengakses indeks produk', ['user' => Auth::user()->id]);
         return view('products.index', [
             'products' => $products
         ]);
@@ -40,6 +44,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try{
+        Log::warning('User mencoba menambahkan data produk', ['user' => Auth::user()->id, 'data' => $request]);
         $request->validate([
                 'code' => 'required | min:13 | max:13',
                 'product_name'=> 'required',
@@ -50,12 +55,11 @@ class ProductController extends Controller
             'code', 'product_name','quantity', 'price'
         ]);
         $products = Product::create($array);
-        
-        return redirect()->route('products.index')
-                ->with('success_message', 'Berhasil menambah product baru');
+        Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'product' => $products->id]);
+        return redirect()->route('products.index');
         }catch (\Exception $e) {
-        return redirect()->route('products.create')
-        ->with('error_message', 'Format yang anda masukkan salah !');;
+        Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
+        return redirect()->route('products.create');
         }
     }
 
@@ -103,9 +107,12 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->quantity = $request->quantity;
         $product->price = $request->price;
-        $product->save();
-        return redirect()->route('products.index')
-            ->with('success_message', 'Berhasil mengubah product');
+        if($product->save()){
+        Log::info('Berhasil mengubah product', ['user' => Auth::user()->id, 'product' => $product->id]);
+        return redirect()->route('products.index');
+        }
+        Log::error('Data yang diubah tidak sesuai dengan format yang ditentukan', ['user' => Auth::user()->id, 'product' => $products->id, 'data' => $request]);
+        return;
     }
 
     /**
@@ -117,9 +124,15 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        //menambahkan code
+        if($product){
+        Log::info('User berhasil menghapus data', ['user' => Auth::user()->id, 'product' => $id]);
         $product->delete();
         return redirect()->route('products.index')
-            ->with('success_message', 'Berhasil menghapus product');
+            ->with(['product' => $product]);
+        }
+        Log::error('Data tidak tidak ditemukan user untuk dihapus', ['user' => Auth::user()->id, 'product' => $id]);
+        return; //404
     }
 
     /**

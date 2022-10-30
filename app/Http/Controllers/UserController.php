@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -15,6 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        Log::info('Pengguna sedang mengakses', ['user' => Auth::user()->id]);
         return view('users.index', [
             'users' => $users
         ]);
@@ -38,6 +42,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+        Log::warning('User mencoba untuk menambah data', ['user' => Auth::user()->id, 'data' => $request]);
         $request->validate([
             'name' => 'required',
             'username'=> 'required',
@@ -50,9 +56,13 @@ class UserController extends Controller
         ]);
         // $array['password'] = bcrypt($array['password']);
         $user = User::create($array);
-        return redirect()->route('users.index')
-            ->with('success_message', 'Berhasil menambah user baru');
-
+        Log::info('Berhasil menambah user baru', ['user' => Auth::user()->id, 'user' => $user->id]);
+        return redirect()->route('users.index');
+        }
+        catch (\Exception $e) {
+        Log::error('User tidak dapat dibuat karena email sudah terdaftar', ['user' => Auth::user()->id, 'data' => $request]);
+        return redirect()->route('users.create'); //422
+        }
     }
 
     /**
@@ -63,7 +73,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        //menambahkan
+        $user = User::find($id);
+        Log::info('User sedang menggunakan sebagian data', ['user' => Auth::user()->id, 'user' => $user->id]);
+        return view('user.show', ['user' => $user]);
     }
 
     /**
@@ -75,10 +88,17 @@ class UserController extends Controller
     public function edit(Request $request, $id)
     {
         $user = User::find($id);
-        if ($id == $request->user()->id) return redirect()->route('users.index')
-            ->with('error_message', 'Anda tidak dapat mengedit admin.');
-        if (!$user) return redirect()->route('users.index')
-            ->with('error_message', 'User dengan id '.$id.' tidak ditemukan');
+        if ($id == $request->user()->id){
+            Log::error('Anda tidak dapat mengedit admin.', ['user' => Auth::user()->id, 'user' => $id]);
+            return view('users.edit', [
+                'user' => $user
+            ]);
+        }
+        if (!$user){
+            Log::error('User dengan id '.$id.' tidak ditemukan', ['user' => Auth::user()->id, 'user' => $id]);
+            return;
+            // return redirect()->route('users.index');
+        }
         return view('users.edit', [
             'user' => $user
         ]);
@@ -107,9 +127,12 @@ class UserController extends Controller
         $user->password = $request->password;
         // if ($request->password) $user->password = bcrypt($request->password);
         $user->address = $request->address;
-        $user->save();
-        return redirect()->route('users.index')
-            ->with('success_message', 'Berhasil mengubah user');
+        if($user->save()){
+        Log::info('Berhasil mengupdate user', ['user' => Auth::user()->id, 'user' => $user->id]);
+        return redirect()->route('users.index');
+        }
+        Log::error('Gagal mengupdate user', ['user' => Auth::user()->id, 'user' => $id]);
+        return; //401
     }
 
     /**
@@ -121,10 +144,14 @@ class UserController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = User::find($id);
-        if ($id == $request->user()->id) return redirect()->route('users.index')
-            ->with('error_message', 'Anda tidak dapat menghapus diri sendiri.');
-        if ($user) $user->delete();
-        return redirect()->route('users.index')
-            ->with('success_message', 'Berhasil menghapus data');
+        if ($id == $request->user()->id){
+        Log::error('User tidak dapat terhapus', ['user' => Auth::user()->id, 'user' => $id]);
+        return; //404
+        }
+        if ($user){
+        Log::info('Berhasil menghapus data', ['user' => Auth::user()->id, 'user' => $id]);
+        $user->delete();
+        return redirect()->route('users.index');
+        }
     }
 }
