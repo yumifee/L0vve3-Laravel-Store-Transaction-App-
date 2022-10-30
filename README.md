@@ -64,3 +64,24 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## How To Install
+# Jalankan perintah
+    composer install" atau "composer update"
+# Copy file .env dari .env.example atau rename dari .env.example menjadi .env
+    cp .env.example .env
+# Konfigurasi file .env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=example_app
+    DB_USERNAME=root
+    DB_PASSWORD=
+# Generate key
+    php artisan key:generate
+# Migrate database
+    php artisan migrate
+# Menjalankan aplikasi
+    php artisan serve
+
+
