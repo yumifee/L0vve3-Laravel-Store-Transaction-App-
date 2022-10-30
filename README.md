@@ -68,7 +68,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## How To Install
 # Jalankan perintah
     composer install" atau "composer update"
-# Copy file .env dari .env.example
+# Copy file .env dari .env.example atau rename dari .env.example menjadi .env
     cp .env.example .env
 # Konfigurasi file .env
     DB_CONNECTION=mysql
