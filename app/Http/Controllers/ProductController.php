@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use exception;
 
 class ProductController extends Controller
 {
@@ -38,8 +39,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        try{
         $request->validate([
-                'code' => 'required',
+                'code' => 'required | min:13 | max:13',
                 'product_name'=> 'required',
                 'quantity' => 'required',
                 'price' => 'required'
@@ -48,8 +50,13 @@ class ProductController extends Controller
             'code', 'product_name','quantity', 'price'
         ]);
         $products = Product::create($array);
+        
         return redirect()->route('products.index')
                 ->with('success_message', 'Berhasil menambah product baru');
+        }catch (\Exception $e) {
+        return redirect()->route('products.create')
+        ->with('error_message', 'Kode Barang yang Anda Masukkan Harus Memiliki 13 Karakter');;
+        }
     }
 
     /**

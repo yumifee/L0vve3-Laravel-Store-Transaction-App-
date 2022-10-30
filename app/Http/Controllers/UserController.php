@@ -42,13 +42,13 @@ class UserController extends Controller
             'name' => 'required',
             'username'=> 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed',
+            'password' => 'required',
             'address' => 'required'
         ]);
         $array = $request->only([
             'name', 'username','email', 'password', 'address'
         ]);
-        $array['password'] = bcrypt($array['password']);
+        // $array['password'] = bcrypt($array['password']);
         $user = User::create($array);
         return redirect()->route('users.index')
             ->with('success_message', 'Berhasil menambah user baru');
@@ -95,14 +95,15 @@ class UserController extends Controller
             'name' => 'required',
             'username'=> 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'sometimes|nullable|confirmed',
+            'password' => 'required',
             'address' => 'required'
         ]);
         $user = User::find($id);
         $user->name = $request->name;
         $user->username = $request->username;
         $user->email = $request->email;
-        if ($request->password) $user->password = bcrypt($request->password);
+        $user->password = $request->password;
+        // if ($request->password) $user->password = bcrypt($request->password);
         $user->address = $request->address;
         $user->save();
         return redirect()->route('users.index')

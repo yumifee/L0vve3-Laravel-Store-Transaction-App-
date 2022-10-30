@@ -18,7 +18,7 @@
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <!-- <th>Password</th> -->
+                            <th>Password</th>
                             <th>Alamat</th>
                             <th>Opsi</th>
                         </tr>
@@ -30,7 +30,7 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->username}}</td>
                                 <td>{{$user->email}}</td>
-                                <!-- <td>{{$user->password}}</td> -->
+                                <td>{{$user->password}}</td>
                                 <td>{{$user->address}}</td>
                                 <td>
                                     <a href="{{route('users.edit', $user)}}" class="btn btn-primary btn-xs">
