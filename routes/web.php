@@ -33,4 +33,4 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
     ->middleware('auth');
 Route::resource('products', \App\Http\Controllers\ProductController::class)
     ->middleware('auth');
-Route::get('download-pdf', [ReportController::class, 'downloadPDF']);
+Route::get('reportStock', [ReportController::class, 'downloadPDF']);

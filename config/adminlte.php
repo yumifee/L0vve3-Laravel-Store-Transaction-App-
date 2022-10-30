@@ -298,7 +298,18 @@ return [
             'text' => 'Product',
             'url'  => '/products',
             'icon'  => 'fa fa-shopping-cart',
+        ],
+        [
+            'text' => 'Transaction',
+            'url'  => '/products',
+            'icon'  => 'fa fa-shopping-basket',
+        ],
+        [
+            'text' => 'Stock Report',
+            'url'  => '/reportStock',
+            'icon'  => 'fa fa-print',
         ]
+
     ],
 
     /*
