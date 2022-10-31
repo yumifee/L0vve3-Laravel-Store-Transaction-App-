@@ -56,10 +56,10 @@ class ProductController extends Controller
         ]);
         $products = Product::create($array);
         Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'product' => $products->id]);
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success_message', 'Berhasil menambah Produk baru');
         }catch (\Exception $e) {
         Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
-        return redirect()->route('products.create');
+        return redirect()->route('products.create')->with('error_message', 'Format yang anda masukkan salah');
         }
     }
 
@@ -109,10 +109,10 @@ class ProductController extends Controller
         $product->price = $request->price;
         if($product->save()){
         Log::info('Berhasil mengubah product', ['user' => Auth::user()->id, 'product' => $product->id]);
-        return redirect()->route('products.index');
+        return redirect()->route('products.index') ->with('success_message', 'Berhasil mengupdate produk ');
         }
         Log::error('Data yang diubah tidak sesuai dengan format yang ditentukan', ['user' => Auth::user()->id, 'product' => $products->id, 'data' => $request]);
-        return;
+        return with('error_message', 'Format Tidak sesuai');
     }
 
     /**
@@ -129,10 +129,10 @@ class ProductController extends Controller
         Log::info('User berhasil menghapus data', ['user' => Auth::user()->id, 'product' => $id]);
         $product->delete();
         return redirect()->route('products.index')
-            ->with(['product' => $product]);
+            ->with('success_message', 'Berhasil menghapus produk',['product' => $product]);
         }
         Log::error('Data tidak tidak ditemukan user untuk dihapus', ['user' => Auth::user()->id, 'product' => $id]);
-        return; //404
+        return with('error_message', 'Format Tidak sesuai');//404
     }
 
     /**
