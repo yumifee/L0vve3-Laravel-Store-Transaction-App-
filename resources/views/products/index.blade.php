@@ -17,6 +17,7 @@
                     <table class="table table-hover table-bordered table-stripped" id="example2">
                         <thead>
                         <tr>
+                            <th>id</th>
                             <th>No.</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
@@ -26,23 +27,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($products as $key => $product)
-                            <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{$product->code}}</td>
-                                <td>{{$product->product_name}}</td>
-                                <td>{{$product->quantity}}</td>
-                                <td>{{$product->price}}</td>
-                                <td>
-                                    <a href="{{route('products.edit', $product)}}" class="btn btn-primary btn-xs">
-                                        Edit
-                                    </a>
-                                    <a href="{{route('products.destroy', $product)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                        
                         </tbody>
                     </table>
                 </div>
@@ -56,8 +41,25 @@
         @csrf
     </form>
     <script>
+        $(document).ready(function(){
         $('#example2').DataTable({
-            "responsive": true,
+                ajax: '',
+                serverSide: true,
+                processing: true,
+                aaSorting:[[0,"asc"]],
+                columns: [
+                    {data: 'no', name: 'no', render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                    }, width: '5%'},
+                    {data: 'id', name: 'id'},
+                    {data: 'code', name: 'code'},
+                    {data: 'product_name', name: 'product_name'},
+                    {data: 'quantity', name: 'quantity'},
+                    {data: 'price', name: 'price'},
+                    {data: 'action', name: 'action'},
+                ],
+                lengthMenu: [10, 25, 50, 75, 100],
+            });
         });
         function notificationBeforeDelete(event, el) {
             event.preventDefault();

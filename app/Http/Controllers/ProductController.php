@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\DataTables;
 use exception;
 
 class ProductController extends Controller
@@ -16,13 +17,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        if($request->ajax()){
+            $products = Product::all();
+            return DataTables::of($products)
+            ->addColumn('action', function ($row) {
+                $html = '<a href='.route('products.edit',$row->id).' class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                <i class="fa fa-lg fa-fw fa-pen"></i>
+                </a>';
+                $html.= '<a href='.route('products.destroy', $row->id).' class="btn btn-xs btn-default text-danger mx-1 shadow" title="Edit" onclick="notificationBeforeDelete(event, this)">
+                <i class="fa fa-lg fa-fw fa-trash"></i>
+                </a>';
+                return $html;
+            })
+            ->toJson();
+            }
+        return view('products.index');
         Log::info('User mengakses indeks produk', ['user' => Auth::user()->id]);
-        return view('products.index', [
-            'products' => $products
-        ]);
     }
 
     /**
@@ -96,6 +108,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Log::warning('User mencoba mengupdate data produk', ['user' => Auth::user()->id, 'data' => $request]);
         $request->validate([
             'code' => 'required | min:13 | max:13',
             'product_name'=> 'required',

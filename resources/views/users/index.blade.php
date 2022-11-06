@@ -11,9 +11,10 @@
                     <a href="{{route('users.create')}}" class="btn btn-primary mb-2">
                         Tambah
                     </a>
-                    <table class="table table-hover table-bordered table-stripped" id="example2">
+                    <table class="table table-hover table-bordered table-stripped" id="pegawai">
                         <thead>
                         <tr>
+                            <!-- <th>id</th> -->
                             <th>No.</th>
                             <th>Nama</th>
                             <th>Username</th>
@@ -24,24 +25,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $key => $user)
-                            <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->username}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->password}}</td>
-                                <td>{{$user->address}}</td>
-                                <td>
-                                    <a href="{{route('users.edit', $user)}}" class="btn btn-primary btn-xs">
-                                        Edit
-                                    </a>
-                                    <a href="{{route('users.destroy', $user)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -55,8 +38,26 @@
         @csrf
     </form>
     <script>
-        $('#example2').DataTable({
-            "responsive": true,
+        $(document).ready(function(){
+            $('#pegawai').DataTable({
+                ajax: '',
+                serverSide: true,
+                processing: true,
+                aaSorting:[[0,"asc"]],
+                columns: [
+                    {data: 'no', name: 'no', render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                    }, width: '5%'},
+                    // {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'username', name: 'username'},
+                    {data: 'email', name: 'email'},
+                    {data: 'password', name: 'password'},
+                    {data: 'address', name: 'address'},
+                    {data: 'action', name: 'action'},
+                ],
+                lengthMenu: [10, 25, 50, 75, 100],
+            });
         });
         function notificationBeforeDelete(event, el) {
             event.preventDefault();

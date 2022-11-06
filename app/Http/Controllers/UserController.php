@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\DataTables;
+
 
 class UserController extends Controller
 {
@@ -15,13 +17,24 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        if($request->ajax()){
+            $users = User::all();
+            return DataTables::of($users)
+            ->addColumn('action', function ($row) {
+                $html = '<a href='.route('users.edit',$row->id).' class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                <i class="fa fa-lg fa-fw fa-pen"></i>
+                </a>';
+                $html.= '<a href='.route('users.destroy', $row->id).' class="btn btn-xs btn-default text-danger mx-1 shadow" title="Edit" onclick="notificationBeforeDelete(event, this)">
+                <i class="fa fa-lg fa-fw fa-trash"></i>
+                </a>';
+                return $html;
+            })
+            ->toJson();
+            }
+        return view('users.index');
         Log::info('Pengguna sedang mengakses', ['user' => Auth::user()->id]);
-        return view('users.index', [
-            'users' => $users
-        ]);
     }
 
     /**
