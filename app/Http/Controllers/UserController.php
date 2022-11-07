@@ -70,11 +70,11 @@ class UserController extends Controller
         // $array['password'] = bcrypt($array['password']);
         $user = User::create($array);
         Log::info('Berhasil menambah user baru', ['user' => Auth::user()->id, 'user' => $user->id]);
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success_message', 'Berhasil menambah akun');
         }
         catch (\Exception $e) {
         Log::error('User tidak dapat dibuat karena email sudah terdaftar', ['user' => Auth::user()->id, 'data' => $request]);
-        return redirect()->route('users.create'); //422
+        return redirect()->route('users.create')->with('error_message', 'Email sudah terdaftar'); //422
         }
     }
 
@@ -105,10 +105,10 @@ class UserController extends Controller
             Log::error('Anda tidak dapat mengedit admin.', ['user' => Auth::user()->id, 'user' => $id]);
             return view('users.edit', [
                 'user' => $user
-            ]);
+            ])->with('error_message', 'Anda tidak dapat mengedit admin');
         }
         if (!$user){
-            Log::error('User dengan id '.$id.' tidak ditemukan', ['user' => Auth::user()->id, 'user' => $id]);
+            Log::error('User dengan id '.$id.' tidak ditemukan', ['user' => Auth::user()->id, 'user' => $id])->with('error_message', 'Akun tidak dapat ditemukan');
             return;
             // return redirect()->route('users.index');
         }
@@ -141,10 +141,10 @@ class UserController extends Controller
         // if ($request->password) $user->password = bcrypt($request->password);
         $user->address = $request->address;
         if($user->save()){
-        Log::info('Berhasil mengupdate user', ['user' => Auth::user()->id, 'user' => $user->id]);
+        Log::info('Berhasil mengupdate user', ['user' => Auth::user()->id, 'user' => $user->id])->with('success_message', 'Berhasil Mengupdate user');
         return redirect()->route('users.index');
         }
-        Log::error('Gagal mengupdate user', ['user' => Auth::user()->id, 'user' => $id]);
+        Log::error('Gagal mengupdate user', ['user' => Auth::user()->id, 'user' => $id])->with('error_message', 'Gagal Mengupdate user');
         return; //401
     }
 

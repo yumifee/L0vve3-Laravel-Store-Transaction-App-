@@ -33,4 +33,6 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
     ->middleware('auth');
 Route::resource('products', \App\Http\Controllers\ProductController::class)
     ->middleware('auth');
+Route::resource('transactions', \App\Http\Controllers\TransactionController::class)
+    ->middleware('auth');
 Route::get('reportStock', [ReportController::class, 'downloadPDF']);

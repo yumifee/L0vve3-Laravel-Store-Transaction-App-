@@ -1,51 +1,66 @@
 @extends('adminlte::page')
-@section('title', 'Transaction Page')
+@section('title', 'Detail Transaction Page')
 @section('content_header')
-    <h1 class="m-0 text-dark">Data Transaction</h1>
+    <h1 class="m-0 text-dark">Deatil Data Transaction</h1>
 @stop
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{route('transactions.create')}}" class="btn btn-primary mb-2">
-                        Tambah
-                    </a>
-                    <a href="reportStock" class="btn btn-primary mb-2">
-                        Laporan
+                <div class="card-footer">
+                    <a href="{{route('transactions.index')}}" class="btn btn-sm btn-danger">
+                        Tutup
                     </a>
                     <table class="table table-hover table-bordered table-stripped" id="example2">
                         <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Invoice</th>
-                            <!-- <th>Kode Barang</th>
+                            <th>Kode Barang</th>
                             <th>Nama Barang</th>
-                            <th>Total Barang</th> -->
-                            <th>Total Harga</th>
-                            <!-- <th>Diskon</th> -->
+                            <th>Jumlah Dibeli</th>
+                            <th>Harga</th>
                             <th>Opsi</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($transactions as $key => $transaction)
                             <tr>
-                                {{-- <td>{{$key+1}}</td> --}}
-                                <td></td>
-                                <td>INV</td>
-                                {{-- <td> INV - {{ $key+1 }} </td> --}}
-                                {{-- <td>{{$transaction->harga}}</td> --}}
-                                <td>Harga</td>
+                                <td>1</td>
+                                <td>1234567890123</td>
+                                <td>es</td>
+                                <td>3</td>
+                                <td>5000</td>
                                 <td>
-                                <a href="{{ route('transactions.show', $transaction) }}" class="btn btn-sm btn-info btn-xs">
-                                    Detail
-                                </a>
                                     <a href="{{route('transactions.edit', $transaction)}}" class="btn btn-primary btn-xs">
                                         Edit
                                     </a>
                                     <a href="{{route('transactions.destroy', $transaction)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                                         Delete
                                     </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1234567890121</td>
+                                <td>baju</td>
+                                <td>3</td>
+                                <td>10000</td>
+                                <td>
+                                    <a href="{{route('transactions.edit', $transaction)}}" class="btn btn-primary btn-xs">
+                                        Edit
+                                    </a>
+                                    <a href="{{route('transactions.destroy', $transaction)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <b>Total Harga</b>
+                                </td>
+                                <td class="text-right">
+                                    <b>15000</b>
                                 </td>
                             </tr>
                         @endforeach

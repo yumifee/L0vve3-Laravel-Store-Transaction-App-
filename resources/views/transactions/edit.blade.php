@@ -1,10 +1,10 @@
 @extends('adminlte::page')
-@section('title', 'Edit product')
+@section('title', 'Edit transaction')
 @section('content_header')
-    <h1 class="m-0 text-dark">Edit product</h1>
+    <h1 class="m-0 text-dark">Edit transaction</h1>
 @stop
 @section('content')
-    <form action="{{route('products.update', $product)}}" method="post">
+    <form action="{{route('transactions.update', $transaction)}}" method="post">
         @method('PUT')
         @csrf
     <div class="row">
