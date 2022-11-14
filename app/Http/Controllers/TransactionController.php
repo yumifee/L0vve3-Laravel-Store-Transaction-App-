@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,8 +13,9 @@ class TransactionController extends Controller
 {
     public function index(){
         $transactions = Transaction::all();
-        $transactions = array('title' => 'Data Transaction');
-        return view('transactions.index', ['transactions' => $transactions]);
+        return view('transactions.index', [
+            'transactions' => $transactions
+        ]);
     }
 
     public function create(){
@@ -22,8 +24,10 @@ class TransactionController extends Controller
     }
 
     public function show($id){
-        $data = array('title' => 'Detail Transaction');
-        return view('transactions.show', ['transactions' => $data]);
+        $transactiondetails = TransactionDetail::all();
+        return view('transactions.show', [
+            'transactiondetails' => $transactiondetails
+        ]);
     }
 
     public function edit($id){

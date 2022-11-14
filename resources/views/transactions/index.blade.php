@@ -30,12 +30,9 @@
                         <tbody>
                         @foreach($transactions as $key => $transaction)
                             <tr>
-                                {{-- <td>{{$key+1}}</td> --}}
-                                <td></td>
-                                <td>INV</td>
-                                {{-- <td> INV - {{ $key+1 }} </td> --}}
-                                {{-- <td>{{$transaction->harga}}</td> --}}
-                                <td>Harga</td>
+                                <td>{{$key+1}}</td>
+                                <td>{{ $transaction->invoice }}</td>
+                                <td>{{$transaction->harga}}</td>
                                 <td>
                                 <a href="{{ route('transactions.show', $transaction) }}" class="btn btn-sm btn-info btn-xs">
                                     Detail

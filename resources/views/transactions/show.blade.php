@@ -24,13 +24,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($transactions as $key => $transaction)
+                        @foreach($transactiondetails as $key => $detail)
                             <tr>
-                                <td>1</td>
-                                <td>1234567890123</td>
-                                <td>es</td>
-                                <td>3</td>
-                                <td>5000</td>
+                                <td>{{ $detail->id }}</td>
+                                <td>{{ $detail->code }}</td>
+                                <td>{{ $detail->product_name }}</td>
+                                <td>{{ $detail->quantity }}</td>
+                                <td>{{ $detail->price }}</td>
                                 <td>
                                     <a href="{{route('transactions.edit', $transaction)}}" class="btn btn-primary btn-xs">
                                         Edit
