@@ -59,9 +59,35 @@ class ProductController extends Controller
     {
         try{
             Log::warning('User mencoba menambahkan data produk', ['user' => Auth::user()->id, 'data' => $request]);
-            $temp_count = Product::all()->count() + 1;
+            $product_count = Product::all()->count() + 1;
             $product = new Product;
-            $product->code = date("Y")."00000000".$temp_count;
+            if($product_count < 10){
+                $product->code = date("Y")."00000000".$product_count;
+            }
+            else if($product_count > 10){
+                $product->code = date("Y")."0000000".$product_count;
+            }
+            else if($product_count > 100){
+                $product->code = date("Y")."000000".$product_count;
+            }    
+            else if($product_count > 1000){
+                $product->code = date("Y")."00000".$product_count;
+            }   
+            else if($product_count > 10000){
+                $product->code = date("Y")."0000".$product_count;
+            }
+            else if($product_count > 100000){
+                $product->code = date("Y")."000".$product_count;
+            }
+            else if($product_count > 1000000){
+                $product->code = date("Y")."00".$product_count;
+            }
+            else if($product_count > 10000000){
+                $product->code = date("Y")."0".$product_count;
+            }
+            else if($product_count > 100000000){
+                $product->code = date("Y").$product_count;
+            }
             $product->product_name = $request->product_name;
             $product->quantity = $request->quantity;
             $product->price = $request->price;
