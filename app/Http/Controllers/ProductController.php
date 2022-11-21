@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 use exception;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+
 
 class ProductController extends Controller
 {
@@ -56,23 +58,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try{
-        Log::warning('User mencoba menambahkan data produk', ['user' => Auth::user()->id, 'data' => $request]);
-        $request->validate([
-                'code' => 'required | min:13 | max:13',
-                'product_name'=> 'required',
-                'quantity' => 'required',
-                'price' => 'required'
-        ]);
-        $array = $request->only([
-            'code', 'product_name','quantity', 'price'
-        ]);
-        $products = Product::create($array);
-        Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'product' => $products->id]);
-        return redirect()->route('products.index')->with('success_message', 'Berhasil menambah Produk baru');
-        }catch (\Exception $e) {
-        Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
-        return redirect()->route('products.create')->with('error_message', 'Format yang anda masukkan salah');
-        }
+            Log::warning('User mencoba menambahkan data produk', ['user' => Auth::user()->id, 'data' => $request]);
+            $temp_count = Product::all()->count() + 1;
+            $product = new Product;
+            $product->code = date("Y")."00000000".$temp_count;
+            $product->product_name = $request->product_name;
+            $product->quantity = $request->quantity;
+            $product->price = $request->price;
+            $product->save();
+            Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id]);
+            return redirect()->route('products.index')->with('success_message', 'Berhasil menambah Produk baru');
+            }catch (\Exception $e) {
+            Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
+            return redirect()->route('products.create')->with('error_message', 'Format yang anda masukkan salah');
+            }
     }
 
     /**

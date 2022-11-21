@@ -17,7 +17,7 @@
                     <table class="table table-hover table-bordered table-stripped" id="example2">
                         <thead>
                         <tr>
-                            <th>id</th>
+                            <!-- <th>id</th> -->
                             <th>No.</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
@@ -51,7 +51,7 @@
                     {data: 'no', name: 'no', render: function (data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                     }, width: '5%'},
-                    {data: 'id', name: 'id'},
+                    // {data: 'id', name: 'id'},
                     {data: 'code', name: 'code'},
                     {data: 'product_name', name: 'product_name'},
                     {data: 'quantity', name: 'quantity'},
