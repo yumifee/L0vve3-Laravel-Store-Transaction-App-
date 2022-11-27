@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,4 @@ Route::resource('products', \App\Http\Controllers\ProductController::class)
 Route::resource('transactions', \App\Http\Controllers\TransactionController::class)
     ->middleware('auth');
 Route::get('reportStock', [ReportController::class, 'downloadPDF']);
+Route::get('send-mail', [MailController::class, 'index']);
