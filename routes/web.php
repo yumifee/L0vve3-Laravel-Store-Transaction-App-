@@ -37,4 +37,4 @@ Route::resource('products', \App\Http\Controllers\ProductController::class)
 Route::resource('transactions', \App\Http\Controllers\TransactionController::class)
     ->middleware('auth');
 Route::get('reportStock', [ReportController::class, 'downloadPDF']);
-Route::get('send-mail', [MailController::class, 'index']);
+Route::get('send-mail', [MailController::class, 'sendEmail']);

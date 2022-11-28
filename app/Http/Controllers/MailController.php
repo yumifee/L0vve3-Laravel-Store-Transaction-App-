@@ -1,10 +1,12 @@
 <?php
   
 namespace App\Http\Controllers;
-  
+
+use App\Jobs\SendingReportJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendingReport;
+use Illuminate\Support\Carbon;
   
 class MailController extends Controller
 {
@@ -13,17 +15,24 @@ class MailController extends Controller
      *
      * @return response()
      */
-    public function index()
+    public function sendEmail()
     {
         $mailData = [
             'title' => 'Pemberitahuan KPU',
             'body' => 'This is for testing email using smtp.'
         ];
-         
-        Mail::to('nazwaaca02@gmail.com')->send(new SendingReport($mailData));
+        
+        dispatch(new SendingReportJob($mailData));
            
         dd("Email is sent successfully.");
     }
+
+    // public function sendEmail()
+    // {
+    //     Mail::to('nazwaaca02@gmail.com')->send(new SendingReport());
+    //     echo 'email sent';
+    // }
+
 
     
 }
