@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Your name
+ * @Date:   2022-11-28 07:10:41
+ * @Last Modified by:   Your name
+ * @Last Modified time: 2022-11-28 07:31:55
+ */
+
 
 return [
 
@@ -308,6 +315,11 @@ return [
             'text' => 'Stock Report',
             'url'  => '/reportStock',
             'icon'  => 'fa fa-print',
+        ],
+        [
+            'text' => 'Laporan',
+            'url'  => '/laporan',
+            'icon'  => 'fa fa-shopping-basket',
         ]
 
     ],
