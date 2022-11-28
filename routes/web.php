@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Your name
+ * @Date:   2022-11-28 07:11:19
+ * @Last Modified by:   Your name
+ * @Last Modified time: 2022-11-28 07:15:23
+ */
+
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
@@ -38,3 +45,6 @@ Route::resource('transactions', \App\Http\Controllers\TransactionController::cla
     ->middleware('auth');
 Route::get('reportStock', [ReportController::class, 'downloadPDF']);
 Route::get('send-mail', [MailController::class, 'sendEmail']);
+Route::resource('laporan', \App\Http\Controllers\LaporanController::class)
+    ->middleware('auth');
+Route::post('/laporan/proses', [\App\Http\Controllers\LaporanController::class, 'proses']);
