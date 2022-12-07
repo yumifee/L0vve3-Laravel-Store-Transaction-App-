@@ -28,24 +28,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($transactions as $key => $transaction)
-                            <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{ $transaction->invoice }}</td>
-                                <td>{{$transaction->harga}}</td>
-                                <td>
-                                <a href="{{ route('transactions.show', $transaction) }}" class="btn btn-sm btn-info btn-xs">
-                                    Detail
-                                </a>
-                                    <a href="{{route('transactions.edit', $transaction)}}" class="btn btn-primary btn-xs">
-                                        Edit
-                                    </a>
-                                    <a href="{{route('transactions.destroy', $transaction)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                        
                         </tbody>
                     </table>
                 </div>
@@ -59,8 +42,21 @@
         @csrf
     </form>
     <script>
+        $(document).ready(function(){
         $('#example2').DataTable({
-            "responsive": true,
+            ajax: '',
+            serverSide: true,
+                processing: true,
+                aaSorting:[[0,"asc"]],
+                columns: [
+                    {data: 'no', name: 'no', render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                    }, width: '5%'},
+                    {data: 'invoice', name: 'invoice'},
+                    {data: 'harga', name: 'harga'},
+                ],
+                lengthMenu: [10, 25, 50, 75, 100],
+            });
         });
         function notificationBeforeDelete(event, el) {
             event.preventDefault();

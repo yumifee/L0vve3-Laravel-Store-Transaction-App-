@@ -9,6 +9,9 @@
             <div class="card">
                 <div class="card-body">
                 <div class="card-footer">
+                <a href="{{route('transactions.create')}}" class="btn btn-sm btn-primary">
+                        Tambah
+                    </a>
                     <a href="{{route('transactions.index')}}" class="btn btn-sm btn-danger">
                         Tutup
                     </a>
@@ -24,46 +27,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($transactiondetails as $key => $detail)
-                            <tr>
-                                <td>{{ $detail->id }}</td>
-                                <td>{{ $detail->code }}</td>
-                                <td>{{ $detail->product_name }}</td>
-                                <td>{{ $detail->quantity }}</td>
-                                <td>{{ $detail->price }}</td>
-                                <td>
-                                    <a href="{{route('transactions.edit', $transaction)}}" class="btn btn-primary btn-xs">
-                                        Edit
-                                    </a>
-                                    <a href="{{route('transactions.destroy', $transaction)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1234567890121</td>
-                                <td>baju</td>
-                                <td>3</td>
-                                <td>10000</td>
-                                <td>
-                                    <a href="{{route('transactions.edit', $transaction)}}" class="btn btn-primary btn-xs">
-                                        Edit
-                                    </a>
-                                    <a href="{{route('transactions.destroy', $transaction)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="5">
-                                    <b>Total Harga</b>
-                                </td>
-                                <td class="text-right">
-                                    <b>15000</b>
-                                </td>
-                            </tr>
-                        @endforeach
+                        
                         </tbody>
                     </table>
                 </div>
