@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -41,7 +43,7 @@ class TransactionDetailController extends Controller
         // $this->product= Product::all();
         // $result = compact("products");
         $products = Product::all();
-        return view('transactiondetail.index', compact($products));
+        return view('transactiondetail.index', compact('products'));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
         // return view('transactiondetail.create', compact($products));
     }

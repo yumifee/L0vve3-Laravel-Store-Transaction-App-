@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -33,8 +35,10 @@ class TransactionController extends Controller
 
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
+        $products = Product::all();
+        return view('transactiondetail.create', compact('products'));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
-        return view('transactiondetail.create', ['transactiondetail' => $data]);
+        //return view('transactiondetail.create', ['transactiondetail' => $data]);
     }
 
     public function show(Request $request){
@@ -43,7 +47,7 @@ class TransactionController extends Controller
         // return view('transactions.index', [
         //     'transactions' => $transactios
         // ]);
-        $products = Product::all();
+        $this->product::all();
         return view('transactiondetails.index', compact(products));
     }
 
@@ -61,7 +65,7 @@ class TransactionController extends Controller
         ]);
         $transaction = transaction::create($array);
         Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transaction' => $transactions->invoice]);
-        return redirect()->route('transactions.index')->with('success_message', 'Berhasil menambah Produk baru');
+        return redirect()->route('transactiondetail.index')->with('success_message', 'Berhasil menambah Produk baru');
         }catch (\Exception $e) {
         Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
         return redirect()->route('transactiondetails.create')->with('error_message', 'Format yang anda masukkan salah');
