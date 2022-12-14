@@ -28,7 +28,7 @@ class TransactionDetailController extends Controller
             })
             ->toJson();
             }  
-        return view('transactionDetail.index');
+        return view('transactiondetail.index');
         Log::info('sedang di akses', ['user'=>Auth::user()->$transactiondetails->id]);
         }
     
@@ -36,7 +36,9 @@ class TransactionDetailController extends Controller
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
         $products = Product::all();
-        return view('transactiondetail.index', compact('products'));
+        return view('transactiondetail.create', compact('products'));
+        // $products = Product::all();
+        // return view('transactiondetail.index', compact('products'));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
         // return view('transactiondetail.create', compact($products));
     }
@@ -49,26 +51,27 @@ class TransactionDetailController extends Controller
         ]);
     }
 
-    // public function store(Request $request)
-    // {
-    //     try{
-    //     Log::warning('User mencoba mengambil data produk', ['user' => Auth::user()->id, 'data' => $request]);
-    //     $request->validate([
-    //             'product_name'=> 'required',
-    //             'quantity' => 'required',
-    //             'price' => 'required'
-    //     ]);
-    //     $array = $request->only([
-    //         'product_name','quantity', 'price'
-    //     ]);
-    //     $transaction = transaction::create($array);
-    //     Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transaction' => $transactions->invoice]);
-    //     return redirect()->route('transactiondetails.index')->with('success_message', 'Berhasil menambah Produk baru');
-    //     }catch (\Exception $e) {
-    //     Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
-    //     return redirect()->route('products.create')->with('error_message', 'Format yang anda masukkan salah');
-    //     }
-    // }
+    public function store(Request $request)
+    {
+        try{
+        Log::warning('User mencoba mengambil data produk', ['user' => Auth::user()->id, 'data' => $request]);
+        $request->validate([
+                'code'=>'required',
+                'product_name'=> 'required',
+                'quantity' => 'required',
+                'price'=>'required'
+        ]);
+        $array = $request->only([
+            'code','product_name','quantity','price'
+        ]);
+        $transactiondetails = TransactionDetail::create($array);
+        Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transactiondetail' => $transactiondetails->invoice]);
+        return redirect()->route('transactiondetail.index')->with('success_message', 'Berhasil menambah Produk baru');
+        }catch (\Exception $e) {
+        Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
+        return redirect()->route('transactiondetails.create')->with('error_message', 'Format yang anda masukkan salah');
+        }
+    }
 
     // public function edit($id){
     //     $data = array('title' => 'Edit Transaction');

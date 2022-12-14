@@ -35,6 +35,7 @@ class TransactionController extends Controller
 
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
+        // $products = Product::all();
         $products = Product::all();
         return view('transactiondetail.create', compact('products'));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
@@ -53,11 +54,10 @@ class TransactionController extends Controller
         Log::warning('User mencoba mengambil data produk', ['user' => Auth::user()->id, 'data' => $request]);
         $request->validate([
                 'product_name'=> 'required',
-                'quantity' => 'required',
-                'price' => 'required'
+                'quantity' => 'required'
         ]);
         $array = $request->only([
-            'product_name','quantity', 'price'
+            'product_name','quantity'
         ]);
         $transaction = transaction::create($array);
         Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transaction' => $transactions->invoice]);

@@ -11,6 +11,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
+                        <label for="exampleInputName">Kode Barang</label>
+                        <input type="text" class="form-control @error('code') is-invalid @enderror" id="exampleInputName" placeholder="Kode Barang" name="code" value="{{old('code')}}">
+                        @error('code') <span class="text-danger">{{$message}}</span> @enderror
+                    </div>
+                    <div class="form-group">
                     <label for="product">Nama Barang:</label>
                     <select wire:model="products" class="form-control" id="products">
                         <option selected value=""></option>
@@ -23,6 +28,11 @@
                         <label for="exampleInputEmail">Jumlah Barang</label>
                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="exampleInputEmail" placeholder="Masukkan Jumlah" name="quantity" value="{{old('quantity')}}">
                         @error('quantity') <span class="text-danger">{{$message}}</span> @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword">Harga Barang</label>
+                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="exampleInputPassword" placeholder="Masukkan Harga" name="price" value="{{old('price')}}">
+                        @error('price') <span class="text-danger">{{$message}}</span> @enderror
                     </div>
                 </div>
                 <div class="card-footer">
