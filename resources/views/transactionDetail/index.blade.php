@@ -9,10 +9,10 @@
             <div class="card">
                 <div class="card-body">
                 <div class="card-footer">
-                <a href="{{route('transactions.create')}}" class="btn btn-sm btn-primary">
+                <a href="{{route('transactiondetail.create')}}" class="btn btn-sm btn-primary">
                         Tambah
                     </a>
-                    <a href="{{route('transactions.index')}}" class="btn btn-sm btn-danger">
+                    <a href="{{route('transactiondetail.index')}}" class="btn btn-sm btn-danger">
                         Tutup
                     </a>
                     <table class="table table-hover table-bordered table-stripped" id="example2">

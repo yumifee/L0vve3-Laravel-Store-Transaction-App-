@@ -16,9 +16,9 @@ class TransactionController extends Controller
             $transactions = Transaction::all();
             return DataTables::of($transactions)
             ->addColumn('action', function($row){
-                $html = '<a href='.route('transaction.edit', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                <i class="fa fa-lg fa-fw fa-pen"></i>
-                </a>';
+                // $html = '<a href='.route('transaction.edit', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                // <i class="fa fa-lg fa-fw fa-pen"></i>
+                // </a>';
                 $html.= '<a href='.route('transaction.destroy', $row->id).' class="btn btn-xs btn-default text-danger mx-1 shadow" title="Edit" onclick="notificationBeforeDelete(event, this)">
                 <i class="fa fa-lg fa-fw fa-trash"></i>
                 </a>';
@@ -34,15 +34,17 @@ class TransactionController extends Controller
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
-        return view('transactions.create', ['transactions' => $data]);
+        return view('transactiondetail.create', ['transactiondetail' => $data]);
     }
 
     public function show(Request $request){
         $data = array('title' => 'Detail Transaction');
         // $transactiondetails = TransactionDetail::all();
-        return view('transactions.create', [
-            'transactiondetails' => $transactiondetails
-        ]);
+        // return view('transactions.index', [
+        //     'transactions' => $transactios
+        // ]);
+        $products = Product::all();
+        return view('transactiondetails.index', compact(products));
     }
 
     public function store(Request $request)
@@ -62,14 +64,14 @@ class TransactionController extends Controller
         return redirect()->route('transactions.index')->with('success_message', 'Berhasil menambah Produk baru');
         }catch (\Exception $e) {
         Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
-        return redirect()->route('products.create')->with('error_message', 'Format yang anda masukkan salah');
+        return redirect()->route('transactiondetails.create')->with('error_message', 'Format yang anda masukkan salah');
         }
     }
 
-    public function edit($id){
-        $data = array('title' => 'Edit Transaction');
-        return view('transactions.edit', ['transactions' => $data]);
-    }
+    // public function edit($id){
+    //     $data = array('title' => 'Edit Transaction');
+    //     return view('transactions.edit', ['transactions' => $data]);
+    // }
 
     public function update(Request $request, $id){
         //
