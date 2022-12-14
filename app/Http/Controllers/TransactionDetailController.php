@@ -15,18 +15,15 @@ class TransactionDetailController extends Controller
 {
     public function index(Request $request){
         if($request->ajax()){
-            $transactions = Transaction::all();
+            $transactiondetais = TransactionDetail::all();
             return DataTables::of($transactions)
             ->addColumn('action', function($row){
                 $html = '<a href='.route('transactiondetails.create', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Tambah">
                 <i class="fa fa-lg fa-fw fa-pen"></i>
                 </a>';
-                // $html = '<a href='.route('transactiondetails.edit', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                // <i class="fa fa-lg fa-fw fa-pen"></i>
-                // </a>';
-                // $html.= '<a href='.route('transactiondetails.destroy', $row->id).' class="btn btn-xs btn-default text-danger mx-1 shadow" title="Edit" onclick="notificationBeforeDelete(event, this)">
-                // <i class="fa fa-lg fa-fw fa-trash"></i>
-                // </a>';
+                $html = '<a href='.route('transactiondetails.index', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Selesai">
+                <i class="fa fa-lg fa-fw fa-pen"></i>
+                </a>';
                 return $html;
             })
             ->toJson();
@@ -38,10 +35,6 @@ class TransactionDetailController extends Controller
 
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
-        // $this->format();
-        // $this->create = true;
-        // $this->product= Product::all();
-        // $result = compact("products");
         $products = Product::all();
         return view('transactiondetail.index', compact('products'));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);

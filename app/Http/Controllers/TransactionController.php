@@ -43,10 +43,6 @@ class TransactionController extends Controller
 
     public function show(Request $request){
         $data = array('title' => 'Detail Transaction');
-        // $transactiondetails = TransactionDetail::all();
-        // return view('transactions.index', [
-        //     'transactions' => $transactios
-        // ]);
         $this->product::all();
         return view('transactiondetails.index', compact(products));
     }
@@ -72,10 +68,9 @@ class TransactionController extends Controller
         }
     }
 
-    // public function edit($id){
-    //     $data = array('title' => 'Edit Transaction');
-    //     return view('transactions.edit', ['transactions' => $data]);
-    // }
+    public function edit($id){
+        //   
+    }
 
     public function update(Request $request, $id){
         //

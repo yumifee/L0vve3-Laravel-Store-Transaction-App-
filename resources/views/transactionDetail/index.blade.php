@@ -4,6 +4,8 @@
     <h1 class="m-0 text-dark">Deatil Data Transaction</h1>
 @stop
 @section('content')
+    <form action="{{route('transactiondetail.create')}}" method="post">
+        @csrf
     <div class="row">
         <div class="col-12">
             <div class="card">
