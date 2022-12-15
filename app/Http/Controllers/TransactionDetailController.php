@@ -14,21 +14,24 @@ use Illuminate\Support\Facades\Log;
 class TransactionDetailController extends Controller
 {
     public function index(Request $request){
-        if($request->ajax()){
-            $transactiondetais = TransactionDetail::all();
-            return DataTables::of($transactions)
-            ->addColumn('action', function($row){
-                $html = '<a href='.route('transactiondetails.create', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Tambah">
-                <i class="fa fa-lg fa-fw fa-pen"></i>
-                </a>';
-                $html = '<a href='.route('transactiondetails.index', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Selesai">
-                <i class="fa fa-lg fa-fw fa-pen"></i>
-                </a>';
-                return $html;
-            })
-            ->toJson();
-            }  
-        return view('transactiondetail.index');
+        // if($request->ajax()){
+        //     $transactiondetais = TransactionDetail::all();
+        //     return DataTables::of($transactions)
+        //     ->addColumn('action', function($row){
+        //         $html = '<a href='.route('transactiondetails.create', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Tambah">
+        //         <i class="fa fa-lg fa-fw fa-pen"></i>
+        //         </a>';
+        //         $html = '<a href='.route('transactiondetails.index', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Selesai">
+        //         <i class="fa fa-lg fa-fw fa-pen"></i>
+        //         </a>';
+        //         return $html;
+        //     })
+        //     ->toJson();
+        //     }  
+        $transactiondetails = TransactionDetail::all();
+        return view('transactionDetail.index', [
+            'transactiondetails' => $transactiondetails
+        ]);
         Log::info('sedang di akses', ['user'=>Auth::user()->$transactiondetails->id]);
         }
     
@@ -61,15 +64,16 @@ class TransactionDetailController extends Controller
                 'quantity' => 'required',
                 'price'=>'required'
         ]);
-        $array = $request->only([
-            'code','product_name','quantity','price'
-        ]);
+        $array = $request->all();
+        $array['quantity'] = (int)$array['quantity'];
+        $array['price'] = (int)$array['price'];
+        // dd($array);
         $transactiondetails = TransactionDetail::create($array);
         Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transactiondetail' => $transactiondetails->invoice]);
-        return redirect()->route('transactiondetail.index')->with('success_message', 'Berhasil menambah Produk baru');
+        return redirect()->route('transactiondetails.index')->with('success_message', 'Berhasil menambah Produk baru');
         }catch (\Exception $e) {
         Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
-        return redirect()->route('transactiondetails.create')->with('error_message', 'Format yang anda masukkan salah');
+        return redirect()->route('transactions.create')->with('error_message', 'Format yang anda masukkan salah');
         }
     }
 

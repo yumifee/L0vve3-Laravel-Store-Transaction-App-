@@ -4,7 +4,7 @@
     <h1 class="m-0 text-dark">Transaksi</h1>
 @stop
 @section('content')
-    <form action="{{route('transactions.index')}}" method="post">
+    <form action="{{route('transactiondetails.store')}}" method="post">
         @csrf
     <div class="row">
         <div class="col-12">
@@ -17,10 +17,10 @@
                     </div>
                     <div class="form-group">
                     <label for="product">Nama Barang:</label>
-                    <select wire:model="products" class="form-control" id="products">
+                    <select wire:model="products" class="form-control" id="products" name= "product_name">
                         <option selected value=""></option>
                             @foreach ($products as $product)
-                                <option value="{{$product->code}}">{{$product->product_name}}</option>
+                                <option value="{{$product->product_name}}">{{$product->product_name}}</option>
                             @endforeach
                     </select>
                     </div>

@@ -50,5 +50,4 @@ Route::get('send-mail', [MailController::class, 'sendEmail']);
 Route::resource('laporan', \App\Http\Controllers\LaporanController::class)
     ->middleware('auth');
 Route::post('/laporan/proses', [\App\Http\Controllers\LaporanController::class, 'proses']);
-Route::resource('transactiondetails', \App\Http\Controllers\TransactionDetailController::class)
-    ->except('show');
+Route::resource('transactiondetails', \App\Http\Controllers\TransactionDetailController::class);
