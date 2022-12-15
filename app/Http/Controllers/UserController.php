@@ -64,20 +64,11 @@ class UserController extends Controller
             'password' => 'required',
             'address' => 'required'
         ]);
-
-        $user = new User;
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->address = $request->address;
-        $user->role = 'kasir';
-        $user->save();
-        // $array = $request->only([
-        //     'name', 'username','email', 'password', 'address'
-        // ]);
-        // // $array['password'] = bcrypt($array['password']);
-        // $user = User::create($array);
+        $array = $request->only([
+            'name', 'username','email', 'password', 'address'
+        ]);
+        // $array['password'] = bcrypt($array['password']);
+        $user = User::create($array);
         Log::info('Berhasil menambah user baru', ['user' => Auth::user()->id, 'user' => $user->id]);
         return redirect()->route('users.index')->with('success_message', 'Berhasil menambah akun');
         }

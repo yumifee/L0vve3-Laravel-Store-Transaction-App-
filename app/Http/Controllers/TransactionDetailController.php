@@ -39,13 +39,9 @@ class TransactionDetailController extends Controller
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
         $products = Product::all();
-<<<<<<< HEAD
-        return view('transactiondetail.index', compact(Product));
-=======
         return view('transactiondetail.create', compact('products'));
         // $products = Product::all();
         // return view('transactiondetail.index', compact('products'));
->>>>>>> 666813062348040adb81b3c7008817473d86ce13
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
         // return view('transactiondetail.create', compact($products));
     }

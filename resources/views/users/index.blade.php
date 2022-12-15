@@ -14,11 +14,12 @@
                     <table class="table table-hover table-bordered table-stripped" id="pegawai">
                         <thead>
                         <tr>
+                            <!-- <th>id</th> -->
                             <th>No.</th>
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Role</th>
+                            <th>Password</th>
                             <th>Alamat</th>
                             <th>Opsi</th>
                         </tr>
@@ -47,10 +48,11 @@
                     {data: 'no', name: 'no', render: function (data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                     }, width: '5%'},
+                    // {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'username', name: 'username'},
                     {data: 'email', name: 'email'},
-                    {data: 'role', name: 'role'},
+                    {data: 'password', name: 'password'},
                     {data: 'address', name: 'address'},
                     {data: 'action', name: 'action'},
                 ],

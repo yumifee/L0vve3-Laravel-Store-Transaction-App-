@@ -35,27 +35,15 @@ class TransactionController extends Controller
 
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
-<<<<<<< HEAD
-        $products = Product::all();
-        return view('transactiondetail.index', compact(product));
-=======
         // $products = Product::all();
         $products = Product::all();
         return view('transactiondetail.create', compact('products'));
->>>>>>> 666813062348040adb81b3c7008817473d86ce13
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
         //return view('transactiondetail.create', ['transactiondetail' => $data]);
     }
 
     public function show(Request $request){
         $data = array('title' => 'Detail Transaction');
-<<<<<<< HEAD
-        // $transactiondetails = TransactionDetail::all();
-        // return view('transactions.index', [
-        //     'transactions' => $transactios
-        // ]);
-=======
->>>>>>> 666813062348040adb81b3c7008817473d86ce13
         $this->product::all();
         return view('transactiondetails.index', compact(products));
     }
