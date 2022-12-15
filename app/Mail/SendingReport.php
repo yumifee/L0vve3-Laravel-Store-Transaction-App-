@@ -24,6 +24,11 @@ class SendingReport extends Mailable
     // {
     //     $this->mailData = $mailData;
     // }
+
+    public function __construct($pdf)
+    {
+        $this->pdf = $pdf;
+    }
   
     /**
      * Build the message.
@@ -33,6 +38,7 @@ class SendingReport extends Mailable
     public function build()
     {
         return $this->subject('Percobaan Testing Email')
-                    ->view('emails.demoMail');
+                    ->view('emails.demoMail')
+                    ->attachData($this->pdf->output(), 'stock_report.pdf');
     }
 }

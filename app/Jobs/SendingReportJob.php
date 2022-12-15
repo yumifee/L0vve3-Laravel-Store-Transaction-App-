@@ -10,6 +10,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\SendingReport;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Product;
+use PDF;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class SendingReportJob implements ShouldQueue
 {
@@ -32,6 +36,17 @@ class SendingReportJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('nazwaaca02@gmail.com')->send(new SendingReport());
+        $users = User::all();
+        $product = Product::all();
+        $data = [
+            'title' => 'Laporan Stok Barang',
+            'date' => date('d/m/Y'),
+            'product' => $product
+        ];
+        $pdf = PDF::loadView('productspdf', $data);
+
+        foreach($users as $user){
+            Mail::to($user->email)->send(new SendingReport($pdf));
+        }
     }
 }
