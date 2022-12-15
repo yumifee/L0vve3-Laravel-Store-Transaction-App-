@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +34,10 @@ class TransactionController extends Controller
 
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
+        $products = Product::all();
+        return view('transactiondetail.index', compact(product));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
-        return view('transactiondetail.create', ['transactiondetail' => $data]);
+        //return view('transactiondetail.create', ['transactiondetail' => $data]);
     }
 
     public function show(Request $request){
@@ -43,7 +46,7 @@ class TransactionController extends Controller
         // return view('transactions.index', [
         //     'transactions' => $transactios
         // ]);
-        $products = Product::all();
+        $this->product::all();
         return view('transactiondetails.index', compact(products));
     }
 

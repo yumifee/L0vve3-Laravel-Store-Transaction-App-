@@ -41,7 +41,7 @@ class TransactionDetailController extends Controller
         // $this->product= Product::all();
         // $result = compact("products");
         $products = Product::all();
-        return view('transactiondetail.index', compact($products));
+        return view('transactiondetail.index', compact(Product));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
         // return view('transactiondetail.create', compact($products));
     }

@@ -300,6 +300,7 @@ return [
             'text' => 'User',
             'url'  => '/users',
             'icon'  => 'fa fa-users',
+            'can' => ('isAdmin'),
         ],
         [
             'text' => 'Product',
@@ -315,11 +316,13 @@ return [
             'text' => 'Stock Report',
             'url'  => '/reportStock',
             'icon'  => 'fa fa-print',
+            'can' => ('isAdmin'),
         ],
         [
             'text' => 'Laporan',
             'url'  => '/laporan',
             'icon'  => 'fa fa-shopping-basket',
+            'can' => ('isAdmin'),
         ]
 
     ],

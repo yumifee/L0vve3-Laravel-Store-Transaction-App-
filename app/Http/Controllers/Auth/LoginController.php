@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -37,4 +39,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        // $users = User::all();
+        // $role = $users->role;
+        // // @foreach($users as $user){
+        // //     // if (){
+        // //     //     return redirect()->route('kasir');
+        // //     // }
+        // //     // else{
+        // //     //     return redirect()->route('home');
+        // //     // }
+        // //     $role = $user->role;
+        // // }
+        // // @endforeach
+        // if($this->$role == 'kasir'){
+        //     return redirect()->route('kasir');
+        // }
+    }
+
 }

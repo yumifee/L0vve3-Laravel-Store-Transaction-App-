@@ -53,3 +53,5 @@ Route::post('/laporan/proses', [\App\Http\Controllers\LaporanController::class, 
 
 Route::resource('transactiondetails', \App\Http\Controllers\TransactionDetailController::class)
     ->except('show');
+
+
