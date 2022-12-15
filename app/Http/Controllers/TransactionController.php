@@ -35,8 +35,9 @@ class TransactionController extends Controller
 
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
-        // $products = Product::all();
         $products = Product::all();
+        // $transactions = Transaction::all();
+        // $filterData = Product::getTable('products')->where('code', 'LIKE','%'.$products.'%')->get();
         return view('transactiondetail.create', compact('products'));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
         //return view('transactiondetail.create', ['transactiondetail' => $data]);
@@ -45,16 +46,42 @@ class TransactionController extends Controller
     public function show(Request $request){
         $data = array('title' => 'Detail Transaction');
         $this->product::all();
-        return view('transactiondetails.index', compact(products));
+        return view('transactiondetails.index', compact('product'));
     }
 
     public function store(Request $request)
     {
+        // try{
+        //     Log::warning('User mencoba menambahkan data transaksi', ['user' => Auth::user()->id, 'data' => $request]);
+        //     $transactions_count = Transaction::all()->count() + 1;
+        //     $transactions = new Transaction;
+        //     if($transactions_count < 10){
+        //         $transactions->code = text("INV")."0".$transactions_count;
+        //     }
+        //     else if($transactions_count > 10){
+        //         $transactions->code = text("INV")."00".$transactions_count;
+        //     }
+        //     else if($transactions_count > 100){
+        //         $transactions->code = text("INV")."000".$transactions_count;
+        //     }    
+        //     else if($transactions_count > 1000){
+        //         $transactions->code = text("INV")."0000".$transactions_count;
+        //     }
+        //     // $transactions->product_name = $request->product_name;
+        //     // $transactions->quantity = $request->quantity;
+        //     $transactions->price = $request->price;
+        //     $transactions->save();
+        //     Log::info('Berhasil menambah transaksi baru', ['user' => Auth::user()->id]);
+        //     return redirect()->route('transactions.index')->with('success_message', 'Berhasil menambah Produk baru');
+        //     }catch (\Exception $e) {
+        //     Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
+        //     return redirect()->route('transactiondetail.create')->with('error_message', 'Format yang anda masukkan salah');
+        //     }
         try{
         Log::warning('User mencoba mengambil data produk', ['user' => Auth::user()->id, 'data' => $request]);
         $request->validate([
-                'product_name'=> 'required',
-                'quantity' => 'required'
+                'invoice'=> 'required',
+                'total_harga' => 'required'
         ]);
         $array = $request->only([
             'product_name','quantity'

@@ -18,8 +18,8 @@ class MailController extends Controller
     public function sendEmail()
     {
         dispatch(new SendingReportJob());
-           
-        dd("Email is sent successfully.");
+        return view('emails.successMail');
+        // dd("Email is sent successfully.");
     }
 
     // public function sendEmail()

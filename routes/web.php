@@ -46,7 +46,8 @@ Route::resource('products', \App\Http\Controllers\ProductController::class)
 Route::resource('transactions', \App\Http\Controllers\TransactionController::class)
     ->middleware('auth');
 Route::get('reportStock', [ReportController::class, 'downloadPDF']);
-Route::get('send-mail', [MailController::class, 'sendEmail']);
+Route::get('send-mail', [MailController::class, 'sendEmail'])
+    ->middleware('auth');
 Route::resource('laporan', \App\Http\Controllers\LaporanController::class)
     ->middleware('auth');
 Route::post('/laporan/proses', [\App\Http\Controllers\LaporanController::class, 'proses']);

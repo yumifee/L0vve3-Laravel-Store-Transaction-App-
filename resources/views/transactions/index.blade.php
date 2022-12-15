@@ -11,9 +11,9 @@
                     <a href="{{route('transactions.create')}}" class="btn btn-primary mb-2">
                         Tambah
                     </a>
-                    <a href="reportStock" class="btn btn-primary mb-2">
+                    {{-- <a href="reportStock" class="btn btn-primary mb-2">
                         Laporan
-                    </a>
+                    </a> --}}
                     <table class="table table-hover table-bordered table-stripped" id="example2">
                         <thead>
                         <tr>
@@ -27,9 +27,6 @@
                             <th>Opsi</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        
-                        </tbody>
                     </table>
                 </div>
             </div>

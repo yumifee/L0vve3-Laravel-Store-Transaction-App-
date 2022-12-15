@@ -11,6 +11,9 @@
                     <a href="{{route('transactions.index')}}" class="btn btn-primary mb-2">
                         Simpan
                     </a>
+                    <a href="{{route('transactions.create')}}" class="btn btn-primary mb-2">
+                        Tambah Transaksi
+                    </a>
                     <a href="reportStock" class="btn btn-primary mb-2">
                         Struk
                     </a>

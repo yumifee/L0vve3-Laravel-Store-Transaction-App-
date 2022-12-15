@@ -15,20 +15,21 @@ class TransactionDetailController extends Controller
 {
     public function index(Request $request){
         // if($request->ajax()){
-        //     $transactiondetais = TransactionDetail::all();
+        //     $transactiondetails = TransactionDetail::all();
         //     return DataTables::of($transactions)
         //     ->addColumn('action', function($row){
         //         $html = '<a href='.route('transactiondetails.create', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Tambah">
         //         <i class="fa fa-lg fa-fw fa-pen"></i>
         //         </a>';
-        //         $html = '<a href='.route('transactiondetails.index', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Selesai">
-        //         <i class="fa fa-lg fa-fw fa-pen"></i>
-        //         </a>';
+        //         // $html = '<a href='.route('transactiondetails.index', $row->id).'class="btn btn-xs btn-default text-primary mx-1 shadow" title="Selesai">
+        //         // <i class="fa fa-lg fa-fw fa-pen"></i>
+        //         // </a>';
         //         return $html;
         //     })
         //     ->toJson();
         //     }  
         $transactiondetails = TransactionDetail::all();
+        $transactiondetails->total_harga = $request->price*$request->quantity;
         return view('transactionDetail.index', [
             'transactiondetails' => $transactiondetails
         ]);
@@ -39,7 +40,10 @@ class TransactionDetailController extends Controller
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
         $products = Product::all();
+        $products = Product::orderBy('code','product_name','price')->get();
         return view('transactiondetail.create', compact('products'));
+        // return view('transactiondetail.index', compact(Product));
+        // return view('transactiondetail.create', compact('products'));
         // $products = Product::all();
         // return view('transactiondetail.index', compact('products'));
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
@@ -66,9 +70,11 @@ class TransactionDetailController extends Controller
         ]);
         $array = $request->all();
         $array['quantity'] = (int)$array['quantity'];
-        $array['price'] = (int)$array['price'];
+        $array['price'] = (int)$array['price']*(int)$array['quantity'];
+        
         // dd($array);
         $transactiondetails = TransactionDetail::create($array);
+        
         Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transactiondetail' => $transactiondetails->invoice]);
         return redirect()->route('transactiondetails.index')->with('success_message', 'Berhasil menambah Produk baru');
         }catch (\Exception $e) {
@@ -77,10 +83,10 @@ class TransactionDetailController extends Controller
         }
     }
 
-    // public function edit($id){
-    //     $data = array('title' => 'Edit Transaction');
-    //     return view('transactiondetails.edit', ['transactiondetails' => $data]);
-    // }
+    public function edit($id){
+        // $data = array('title' => 'Edit Transaction');
+        // return view('transactiondetails.edit', ['transactiondetails' => $data]);
+    }
 
     public function update(Request $request, $id){
         //
