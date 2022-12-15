@@ -7,6 +7,7 @@ use App\Models\TransactionDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -34,18 +35,27 @@ class TransactionController extends Controller
 
     public function create(Request $request){
         $data = array('title' => 'Detail Transaction');
+<<<<<<< HEAD
         $products = Product::all();
         return view('transactiondetail.index', compact(product));
+=======
+        // $products = Product::all();
+        $products = Product::all();
+        return view('transactiondetail.create', compact('products'));
+>>>>>>> 666813062348040adb81b3c7008817473d86ce13
         // return view('products.index', ['products' => $request->only(['code','quantity'])]);
         //return view('transactiondetail.create', ['transactiondetail' => $data]);
     }
 
     public function show(Request $request){
         $data = array('title' => 'Detail Transaction');
+<<<<<<< HEAD
         // $transactiondetails = TransactionDetail::all();
         // return view('transactions.index', [
         //     'transactions' => $transactios
         // ]);
+=======
+>>>>>>> 666813062348040adb81b3c7008817473d86ce13
         $this->product::all();
         return view('transactiondetails.index', compact(products));
     }
@@ -56,25 +66,23 @@ class TransactionController extends Controller
         Log::warning('User mencoba mengambil data produk', ['user' => Auth::user()->id, 'data' => $request]);
         $request->validate([
                 'product_name'=> 'required',
-                'quantity' => 'required',
-                'price' => 'required'
+                'quantity' => 'required'
         ]);
         $array = $request->only([
-            'product_name','quantity', 'price'
+            'product_name','quantity'
         ]);
         $transaction = transaction::create($array);
         Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transaction' => $transactions->invoice]);
-        return redirect()->route('transactions.index')->with('success_message', 'Berhasil menambah Produk baru');
+        return redirect()->route('transactiondetail.index')->with('success_message', 'Berhasil menambah Produk baru');
         }catch (\Exception $e) {
         Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);
         return redirect()->route('transactiondetails.create')->with('error_message', 'Format yang anda masukkan salah');
         }
     }
 
-    // public function edit($id){
-    //     $data = array('title' => 'Edit Transaction');
-    //     return view('transactions.edit', ['transactions' => $data]);
-    // }
+    public function edit($id){
+        //   
+    }
 
     public function update(Request $request, $id){
         //

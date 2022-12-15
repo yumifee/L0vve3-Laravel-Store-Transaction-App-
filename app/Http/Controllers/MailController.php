@@ -17,12 +17,7 @@ class MailController extends Controller
      */
     public function sendEmail()
     {
-        $mailData = [
-            'title' => 'Pemberitahuan KPU',
-            'body' => 'This is for testing email using smtp.'
-        ];
-        
-        dispatch(new SendingReportJob($mailData));
+        dispatch(new SendingReportJob());
            
         dd("Email is sent successfully.");
     }
