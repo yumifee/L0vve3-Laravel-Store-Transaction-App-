@@ -19,6 +19,7 @@
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Password</th>
                             <th>Alamat</th>
                             <th>Opsi</th>
@@ -52,6 +53,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'username', name: 'username'},
                     {data: 'email', name: 'email'},
+                    {data: 'role', name: 'role'},
                     {data: 'password', name: 'password'},
                     {data: 'address', name: 'address'},
                     {data: 'action', name: 'action'},
