@@ -26,6 +26,7 @@
                             <th>Nama Barang</th>
                             <th>Total Barang</th>
                             <th>Total Harga</th>
+                            <!-- <th>Harga yang harus di bayar> -->
                             <!-- <th>Diskon</th> -->
                             <!-- <th>Opsi</th> -->
                         </tr>
@@ -38,14 +39,19 @@
                                 <td>{{$transactiondetail->product_name}}</td>
                                 <td>{{$transactiondetail->quantity}}</td>
                                 <td>{{$transactiondetail->price}}</td>
+                                <!-- <td>{{$transactiondetail->total_price}}</td> -->
                             </tr>
                         @endforeach
                         </tbody>
+                        <tr>
+                            <td colspan="5">Total harga yang harus dibayar:</td>
+                        </tr>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+</div>
+</div>
 @stop
 @push('js')
     <form action="" id="delete-form" method="post">
