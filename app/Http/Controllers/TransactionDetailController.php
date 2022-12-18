@@ -53,9 +53,9 @@ class TransactionDetailController extends Controller
     public function show(Request $request){
         $data = array('title' => 'Detail Transaction');
         // $transactiondetails = TransactionDetail::all();
-        return view('transactiondetail.index', [
-            'transactiondetails' => $transactiondetails
-        ]);
+        // return view('transactiondetail.index', [
+        //     'transactiondetails' => $transactiondetails
+        // ]);
     }
 
     public function store(Request $request)
@@ -72,14 +72,17 @@ class TransactionDetailController extends Controller
         $array = $request->all();
         $array['quantity'] = (int)$array['quantity'];
         $array['price'] = (int)$array['price']*(int)$array['quantity'];
-        // $array['total_price'] = $array_sum('price');
+        
         // $array['total_price'] = (int)$array['price']->count();
         // $count = TransactionDetail::all()->count();
         
+        
         // dd($array);
         $transactiondetails = TransactionDetail::create($array);
-        
-        Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transactiondetail' => $transactiondetails->invoice]);
+        // $transactions = Transaction::create();
+        $total = TransactionDetail::select('code')->sum('price');
+        // $transactions['harga'] = (int)$total;
+        Log::info('Berhasil menambah product baru', ['user' => Auth::user()->id, 'transactiondetail' => $transactiondetails->invoice, 'total' => $total]);
         return redirect()->route('transactiondetails.index')->with('success_message', 'Berhasil menambah Produk baru');
         }catch (\Exception $e) {
         Log::error('Format yang anda masukkan salah !', ['user' => Auth::user()->id, 'data' => $request]);

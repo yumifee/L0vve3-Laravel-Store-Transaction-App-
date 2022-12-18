@@ -26,12 +26,15 @@
                             <th>Nama Barang</th>
                             <th>Total Barang</th>
                             <th>Total Harga</th>
-                            <!-- <th>Harga yang harus di bayar> -->
+                            {{-- <th>Harga yang harus di bayar</th> --}}
                             <!-- <th>Diskon</th> -->
                             <!-- <th>Opsi</th> -->
                         </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $i = 0
+                        @endphp   
                         @foreach($transactiondetails as $key => $transactiondetail)
                             <tr>
                                 <td>{{$key+1}}</td>
@@ -39,13 +42,19 @@
                                 <td>{{$transactiondetail->product_name}}</td>
                                 <td>{{$transactiondetail->quantity}}</td>
                                 <td>{{$transactiondetail->price}}</td>
-                                <!-- <td>{{$transactiondetail->total_price}}</td> -->
+                                {{-- <!-- <td>{{$transactiondetail->total_price}}</td> --> --}}
+                            @php
+                                $i = $transactiondetail->price + $i
+                            @endphp
                             </tr>
                         @endforeach
-                        </tbody>
                         <tr>
-                            <td colspan="5">Total harga yang harus dibayar:</td>
+                            {{-- @php
+                                $i = $transactiondetails->price
+                            @endphp --}}
+                            <td colspan="5">Total harga yang harus dibayar: {{ $i }}</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
