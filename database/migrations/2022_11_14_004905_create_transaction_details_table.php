@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('price');
             $table->timestamps();
-            $row->integer('total_price');
+            // $row->integer('total_price');
         });
     }
 

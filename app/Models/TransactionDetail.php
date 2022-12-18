@@ -13,7 +13,7 @@ class TransactionDetail extends Model
         'code',
         'product_name',
         'quantity', 
-        'price',
-        'total_price'
+        'price'
+        // 'total_price'
     ];
 }

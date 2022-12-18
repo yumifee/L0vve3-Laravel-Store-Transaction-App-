@@ -67,12 +67,12 @@ class TransactionDetailController extends Controller
                 'product_name'=> 'required',
                 'quantity' => 'required',
                 'price'=>'required',
-                'total_price'=>'required'
+                // 'total_price'=>'required'
         ]);
         $array = $request->all();
         $array['quantity'] = (int)$array['quantity'];
         $array['price'] = (int)$array['price']*(int)$array['quantity'];
-        $array['total_price'] = $array_sum('price');
+        // $array['total_price'] = $array_sum('price');
         // $array['total_price'] = (int)$array['price']->count();
         // $count = TransactionDetail::all()->count();
         

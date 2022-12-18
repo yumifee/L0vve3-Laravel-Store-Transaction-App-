@@ -34,12 +34,6 @@
                         <input type="number" class="form-control @error('price') is-invalid @enderror" id="exampleInputPassword" placeholder="Masukkan Harga" name="price" value="{{old('price')}}">
                         @error('price') <span class="text-danger">{{$message}}</span> @enderror
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="exampleInputTotalPrice">Total Harga yang Harus di Bayar:</label>
-                        <input type="number" id="exampleInputPassword" placeholder="" name="total_price" value="{{old('total_price')}}">
-                        @error('price') <span class="text-danger">{{$message}}</span> @enderror
-                    </div>
-                    </div> -->
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
