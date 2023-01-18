@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
     {
     $Faker = Faker::create();
 	$product_count = Product::all()->count() + 1;
-        foreach (range(1,10)as $index){
+        foreach (range(1,2000)as $index){
             Product::create([
                 'product_name' => $Faker->company,
                 'code' => date("Y")."000000".$product_count,

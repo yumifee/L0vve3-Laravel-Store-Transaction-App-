@@ -146,11 +146,12 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->password = $request->password;
-        // if ($request->password) $user->password = bcrypt($request->password);
+        // $user->password = $request->password;
+        if ($request->password) $user->password = bcrypt($request->password);
+        $user->role = 'kasir';
         $user->address = $request->address;
         if($user->save()){
-        Log::info('Berhasil mengupdate user', ['user' => Auth::user()->id, 'user' => $user->id])->with('success_message', 'Berhasil Mengupdate user');
+        // Log::info('Berhasil mengupdate user', ['user' => Auth::user()->id, 'user' => $user->id])->with('success_message', 'Berhasil Mengupdate user');
         return redirect()->route('users.index');
         }
         Log::error('Gagal mengupdate user', ['user' => Auth::user()->id, 'user' => $id])->with('error_message', 'Gagal Mengupdate user');

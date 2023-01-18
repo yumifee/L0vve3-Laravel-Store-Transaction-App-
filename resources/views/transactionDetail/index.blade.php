@@ -52,7 +52,8 @@
                             {{-- @php
                                 $i = $transactiondetails->price
                             @endphp --}}
-                            <td colspan="5">Total harga yang harus dibayar: {{ $i }}</td>
+                            <td colspan="4">Total harga yang harus dibayar: </td>
+                            <td>RP.{{ $i }}</td>
                         </tr>
                         </tbody>
                     </table>
