@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ScannerController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionDetailController;
 
@@ -26,7 +27,7 @@ use App\Http\Controllers\TransactionDetailController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Scan');
 });
 
 Auth::routes();
@@ -52,3 +53,7 @@ Route::resource('laporan', \App\Http\Controllers\LaporanController::class)
     ->middleware('auth');
 Route::post('/laporan/proses', [\App\Http\Controllers\LaporanController::class, 'proses']);
 Route::resource('transactiondetails', \App\Http\Controllers\TransactionDetailController::class);
+
+
+Route::get('scan', [ScannerController::class, 'index']);
+Route::put('beli', [ProductController::class, 'beli']);

@@ -173,6 +173,24 @@ class ProductController extends Controller
         return with('error_message', 'Format Tidak sesuai');//404
     }
 
+    public function beli(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+            'jumlah' => 'required',
+        ]);
+        // $product = product::find($request->code);
+        $product = product::where('code', '=', $request->code)->first();
+
+        $product->quantity = $product->quantity - $request->jumlah;
+        if($product->save()){
+        Log::info('Berhasil mengubah product', ['user' => Auth::user()->id, 'product' => $product->id]);
+        return redirect()->route('products.index') ->with('success_message', 'Berhasil mengupdate produk ');
+        }
+        Log::error('Data yang diubah tidak sesuai dengan format yang ditentukan', ['user' => Auth::user()->id, 'product' => $products->id, 'data' => $request]);
+        return with('error_message', 'Format Tidak sesuai');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
