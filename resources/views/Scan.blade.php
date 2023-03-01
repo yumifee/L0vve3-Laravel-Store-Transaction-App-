@@ -13,34 +13,22 @@
 <body>
     
 <div class="container">
-     
-    <form action="/beli" method="post">
-        @method('PUT')
-        @csrf
-        <div class="row">
-            {{-- <div class="col-md-6">
-                <center><div id="my_camera"></div></center>
-                <br/>
-                <input type=button value="Take Snapshot" onClick="take_snapshot()">
-                <input type="hidden" name="image" class="image-tag">
-            </div>
-            <div class="col-md-6">
-                {{-- <div id="results"></div> --}}
-            {{-- </div>
-            <div class="col-md-12 text-center">
-                <br/>
-                <button class="btn btn-success">Submit</button>
-            </div>  --}}
+    <center>
+        <form action="/beli" method="post">
+            @method('PUT')
+            @csrf
             <div class="col-4">
-                <div id="reader" width="600px"></div>
+                <div>
+                    <div id="reader" width="600px" name="code"></div>
+                </div>
+                <div>
+                    <input type="text" id="result" name="code">
+                    <input type="number" name="jumlah">
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
-            <div class="col-4">
-                <input type="text" id="result" value="result" name="code">
-                <input type="number" name="jumlah">
-            </div>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </form>
+        </form>
+    </center>
 </div>
     
 <script>

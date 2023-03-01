@@ -323,6 +323,12 @@ return [
             'url'  => '/laporan',
             'icon'  => 'fa fa-shopping-basket',
             'can' => ('isAdmin'),
+        ],
+        [
+            'text' => 'Scan',
+            'url'  => '/scan',
+            'icon'  => 'fa fa-scan',
+            'can' => ('isAdmin'),
         ]
 
     ],

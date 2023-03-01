@@ -26,7 +26,7 @@ use App\Http\Controllers\TransactionDetailController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/Scan', function () {
     return view('Scan');
 });
 
