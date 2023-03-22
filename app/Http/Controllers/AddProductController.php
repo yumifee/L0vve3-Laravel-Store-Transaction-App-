@@ -19,7 +19,7 @@ use exception;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
-class ProductController extends Controller
+class AddProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,8 +42,8 @@ class ProductController extends Controller
                 })
                 ->toJson();
         }
-        return view('products.index');
-        Log::info('User mengakses indeks produk', ['user' => Auth::user()->id]);
+        return view('products.stok');
+        Log::info('User mengakses tambah produk', ['user' => Auth::user()->id]);
     }
 
     /**
@@ -55,7 +55,6 @@ class ProductController extends Controller
     {
         return view('products.create');
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -182,7 +181,7 @@ class ProductController extends Controller
         // $product = product::find($request->code);
         $product = product::where('code', '=', $request->code)->first();
 
-        $product->quantity = $product->quantity - $request->jumlah;
+        $product->quantity = $product->quantity + $request->jumlah;
         if ($product->save()) {
             Log::info('Berhasil mengubah product', ['user' => Auth::user()->id, 'product' => $product->id]);
             return redirect()->route('products.index')->with('success_message', 'Berhasil mengupdate produk ');

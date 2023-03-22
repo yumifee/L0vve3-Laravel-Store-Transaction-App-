@@ -8,12 +8,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <!-- <a href="{{route('products.create')}}" class="btn btn-primary mb-2">
+                    <a href="{{route('products.create')}}" class="btn btn-primary mb-2">
                         Tambah
-                    </a> -->
-                    <!-- <a href="/send-mail" class="btn btn-primary mb-2">
+                    </a>
+                    <a href="/send-mail" class="btn btn-primary mb-2">
                         Kirim Report Stock
-                    </a> -->
+                    </a>
                     <table class="table table-hover table-bordered table-stripped" id="example2">
                         <thead>
                         <tr>
@@ -23,7 +23,7 @@
                             <th>Nama Barang</th>
                             <th>Jumlah</th>
                             <th>Harga Barang</th>
-                            <!-- <th>Opsi</th> -->
+                            <th>Opsi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,7 +56,7 @@
                     {data: 'product_name', name: 'product_name'},
                     {data: 'quantity', name: 'quantity'},
                     {data: 'price', name: 'price'},
-                    // {data: 'action', name: 'action'},
+                    {data: 'action', name: 'action'},
                 ],
                 lengthMenu: [10, 25, 50, 75, 100],
             });

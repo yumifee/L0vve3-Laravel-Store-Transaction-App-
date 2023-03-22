@@ -30,13 +30,17 @@ Route::get('/Scan', function () {
     return view('Scan');
 });
 
+Route::get('/addproduct', function () {
+    return view('addproduct');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', function() {
+Route::get('/home', function () {
     return view('home');
 })->name('home')->middleware('auth');
 
@@ -57,3 +61,12 @@ Route::resource('transactiondetails', \App\Http\Controllers\TransactionDetailCon
 
 Route::get('scan', [ScannerController::class, 'index']);
 Route::put('beli', [ProductController::class, 'beli']);
+
+Route::put('addstock', [ProductController::class, 'addstock']);
+Route::get('addstock', [ScannerController::class, 'store']);
+
+Route::resource('addstock', \App\Http\Controllers\AddProductController::class)
+    ->middleware('auth');
+Route::get('/scanstock', function () {
+    return view('stok');
+});

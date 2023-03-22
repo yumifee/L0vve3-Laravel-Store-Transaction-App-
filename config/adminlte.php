@@ -298,38 +298,46 @@ return [
     'menu' => [
         [
             'text' => 'User',
-            'url'  => '/users',
-            'icon'  => 'fa fa-users',
+            'url' => '/users',
+            'icon' => 'fa fa-users',
             'can' => ('isAdmin'),
         ],
         [
             'text' => 'Product',
-            'url'  => '/products',
-            'icon'  => 'fa fa-shopping-cart',
+            'url' => '/products',
+            'icon' => 'fa fa-shopping-cart',
+            'can' => (['isAdmin', 'isKasir']),
         ],
         [
             'text' => 'Transaction',
-            'url'  => '/transactions',
-            'icon'  => 'fa fa-shopping-basket',
+            'url' => '/transactions',
+            'icon' => 'fa fa-shopping-basket',
+            'can' => (['isAdmin', 'isKasir']),
         ],
         [
             'text' => 'Stock Report',
-            'url'  => '/reportStock',
-            'icon'  => 'fa fa-print',
+            'url' => '/reportStock',
+            'icon' => 'fa fa-print',
             'can' => ('isAdmin'),
         ],
         [
             'text' => 'Laporan',
-            'url'  => '/laporan',
-            'icon'  => 'fa fa-shopping-basket',
+            'url' => '/laporan',
+            'icon' => 'fa fa-shopping-basket',
             'can' => ('isAdmin'),
         ],
         [
             'text' => 'Scan',
-            'url'  => '/scan',
-            'icon'  => 'fa fa-scan',
-            'can' => ('isAdmin'),
-        ]
+            'url' => '/scan',
+            'icon' => 'fa fa-shopping-cart',
+            'can' => (['isAdmin', 'isKasir']),
+        ],
+        [
+            'text' => 'Add Product',
+            'url' => '/addstock',
+            'icon' => 'fa fa-shopping-cart',
+            'can' => ('isGudang'),
+        ],
 
     ],
 

@@ -21,7 +21,7 @@
         </div>
         <div class="card-body">
         <center>
-        <form action="/beli" method="post">
+        <form action="/addstock" method="post">
             @method('PUT')
             @csrf
             <div class="col-4">
@@ -32,7 +32,7 @@
                     
                     <label for="code">Kode Barang</label><br>
                     <input type="text" id="result" name="code">
-                    <label for="jumlah">Masukkan Jumlah Pembelian</label><br>
+                    <label for="jumlah">Masukkan Jumlah Tambah Stok</label><br>
                     <input type="number" name="jumlah">
                 </div>
                 <br>
@@ -41,7 +41,7 @@
         </form>
     </center>
 </div>
-    
+   
 <script>
     function onScanSuccess(decodedText, decodedResult) {
   // handle the scanned code as you like, for example:
@@ -49,35 +49,25 @@
   $("#result").val(decodedText)
 }
 
+
 function onScanFailure(error) {
   // handle scan failure, usually better to ignore and keep scanning.
   // for example:
   console.warn(`Code scan error = ${error}`);
 }
 
+
 let html5QrcodeScanner = new Html5QrcodeScanner(
   "reader",
-  { fps: 10, qrbox: {width: 450, height: 450} },
+  { fps: 10, qrbox: {width: 250, height: 250} },
   /* verbose= */ false);
 html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 </script>
-<script language="JavaScript">
-    Webcam.set({
-        width: 490,
-        height: 350,
-        image_format: 'jpeg',
-        jpeg_quality: 90
-    });
-    
-    Webcam.attach( '#my_camera' );
-    
-    function take_snapshot() {
-        Webcam.snap( function(data_uri) {
-            $(".image-tag").val(data_uri);
-            document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
-        } );
-    }
-</script>   
+
+
+
+
+   
 </body>
 </html>
 @endsection
