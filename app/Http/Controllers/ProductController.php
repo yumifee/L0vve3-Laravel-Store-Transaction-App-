@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Your name
+ * @Date:   2023-03-02 13:13:22
+ * @Last Modified by:   Your name
+ * @Last Modified time: 2023-03-22 23:19:56
+ */
+
 
 namespace App\Http\Controllers;
 
@@ -69,10 +76,10 @@ class ProductController extends Controller
             }
             else if($product_count > 100){
                 $product->code = date("Y")."000000".$product_count;
-            }    
+            }
             else if($product_count > 1000){
                 $product->code = date("Y")."00000".$product_count;
-            }   
+            }
             else if($product_count > 10000){
                 $product->code = date("Y")."0000".$product_count;
             }
@@ -149,7 +156,7 @@ class ProductController extends Controller
         Log::info('Berhasil mengubah product', ['user' => Auth::user()->id, 'product' => $product->id]);
         return redirect()->route('products.index') ->with('success_message', 'Berhasil mengupdate produk ');
         }
-        Log::error('Data yang diubah tidak sesuai dengan format yang ditentukan', ['user' => Auth::user()->id, 'product' => $products->id, 'data' => $request]);
+        Log::error('Data yang diubah tidak sesuai dengan format yang ditentukan', ['user' => Auth::user()->id, 'product' => $product->id, 'data' => $request]);
         return with('error_message', 'Format Tidak sesuai');
     }
 
@@ -182,12 +189,12 @@ class ProductController extends Controller
         // $product = product::find($request->code);
         $product = product::where('code', '=', $request->code)->first();
 
-        $product->quantity = $product->quantity - $request->jumlah;
+        $product->quantity = $product->quantity + $request->jumlah;
         if($product->save()){
         Log::info('Berhasil mengubah product', ['user' => Auth::user()->id, 'product' => $product->id]);
         return redirect()->route('products.index') ->with('success_message', 'Berhasil mengupdate produk ');
         }
-        Log::error('Data yang diubah tidak sesuai dengan format yang ditentukan', ['user' => Auth::user()->id, 'product' => $products->id, 'data' => $request]);
+        Log::error('Data yang diubah tidak sesuai dengan format yang ditentukan', ['user' => Auth::user()->id, 'product' => $product->id, 'data' => $request]);
         return with('error_message', 'Format Tidak sesuai');
     }
 

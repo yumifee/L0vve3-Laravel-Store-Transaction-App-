@@ -1,3 +1,11 @@
+<?php
+/**
+ * @Author: Your name
+ * @Date:   2023-03-02 13:13:23
+ * @Last Modified by:   Your name
+ * @Last Modified time: 2023-03-22 14:04:41
+ */
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +19,7 @@
     </style>
 </head>
 <body>
-    
+
 <div class="container">
     <center>
         <form action="/beli" method="post">
@@ -25,12 +33,13 @@
                     <input type="text" id="result" name="code">
                     <input type="number" name="jumlah">
                 </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Add Items</button>
+                <!-- <button type="submit" class="btn btn-primary">Simpan</button> -->
             </div>
         </form>
     </center>
 </div>
-    
+
 <script>
     function onScanSuccess(decodedText, decodedResult) {
   // handle the scanned code as you like, for example:
@@ -57,9 +66,9 @@ html5QrcodeScanner.render(onScanSuccess, onScanFailure);
         image_format: 'jpeg',
         jpeg_quality: 90
     });
-    
+
     Webcam.attach( '#my_camera' );
-    
+
     function take_snapshot() {
         Webcam.snap( function(data_uri) {
             $(".image-tag").val(data_uri);
@@ -69,6 +78,6 @@ html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 </script>
 
 
-   
+
 </body>
 </html>
